@@ -13,9 +13,11 @@ It is unclear what the goal is for part a is it that same as part b? or is the s
 Lets assume:
 
 $$
+\begin{split}
   T = [1, 3, 5, 6, 6]
   \\
   K = 14
+\end{split}
 $$
 
 In this case obviously the best outcome is when the student picks questions 2, 3 and 4 regardless of weather or not he is optimizing his grade or the number of questions solved. But the greedy algorithm will do only questions 4 and 5 before running out of time so clearly the greedy algorithm does not always generate the optimal solution.
@@ -39,11 +41,13 @@ def testStrategy(K, T):
 Lets assume there is a better solution that solves more questions than the greedy one. In this case the new solution will have one more solved question than the greedy algorithm. We know if $T_g$ is the list of $l$ questions chosen using the greedy algorithm then:
 
 $$
+\begin{split}
   \sum_{i=1}^{l} T_g = t_g
   \\
   i^\prime = findShortest(T-T_g)
   \\
   then\ K > t_g + T[i^\prime]
+\end{split}
 $$
 
 Given that this proves that even the shortest job left over can't be completed in addition to the questions chosen by the greedy algorithm so if the new algorithm is optimal then it must not have at least one of the questions in the $T_g$ set to make room for 2 or more questions but if we swap a question $q \in T_g$ with a question $p \in (T-T_g)$ to get a new set $T_s$ then we are guaranteed to have $T[p] > T[q]$ because at each turn in the greedy algorithm we chose the shortest question so even if $\sum_{i=1}^{l} T_s < K$ no more questions can be fit into the new set which means the new algorithm can't pick more questions than the greedy algorithm which is **contradictory**.
@@ -90,12 +94,14 @@ $$
 then after swapping $i$ and $j$ the height of the new shelves would be $h_i^\prime$ and $h_j^\prime$ assuming the tallest book in row where j resided is k after the swap:
 
 $$
+\begin{split}
   since\ height(b_i) < height(b_j) \rightarrow
   \begin{cases}
     h_i + a = h_i^\prime,& a = len(b_j) - h_i > 0
     \\
     h_j + b = h_j^\prime,& b = len(b_k) - len(b_j)
   \end{cases}
+\end{split}
 $$
 
 that means that the new total height is:
@@ -113,9 +119,11 @@ Why are we still using tape?
 ### A - Greedy Algorithm to Find Minimum Average Retrieval Time
 
 $$
+\begin{split}
   time\ to\ retrieve\ file\ k \rightarrow T_k = \sum_{j=1}^k {L_{i_j}}
   \\
   average\ retrieval\ time\ \rightarrow A = \frac{1}{n} \times \sum_{k=1}^{n} T_k = \frac{1}{n} \times \sum_{k=1}^{n} \sum_{j=1}^k {L_{i_j}}
+\end{split}
 $$
 
 So if I put the largest file first it will increase the retrieval time for all of the files after it so I will put the smallest files first.
@@ -142,25 +150,31 @@ So the first step is as sorting the files which is $\Theta(n \log{n})$ and we ne
 Lets assume that the greedy algorithm $G$ is not optimal and another algorithm $S$ is better than $G$. Then $S$ must not be sorting the files by length and that tells me there are at least 2 files $p$ and $q$ that are next to each such that:
 
 $$
+\begin{split}
   i_q = i_p + 1 \rightarrow q\ comes\ after\ p
   \\
   L_q < L_p \rightarrow p\ is\ longer\ than\ q
+\end{split}
 $$
 
 Now if there was another algorithm $S^\prime$ exactly the same as $S$ but with p and q swapped. The new retrieval time for $p$ and $q$ would be:
 
 $$
+\begin{split}
  T_p^\prime = T_q - L_q + L_p = (T_p - L_p) - L_q + L_p = T_p - L_q
  \\
  T_q^\prime = T_p^\prime + L_q = T_q + L_p
+\end{split}
 $$
 
 Now for all of the elements at $i$ after $i_p^\prime$ in $S^\prime$.
 
 $$
+\begin{split}
   T_k^\prime = T_p^\prime + \sum_{j=i_p^\prime}^k {L_{i_j}}
   \\
   T_k^\prime = T_p - L_q + \sum_{j=i_p^\prime}^k {L_{i_j}}
+\end{split}
 $$
 
 The retrieval time for elements before $i_p$ hasn't changed but for every element after $i_q$ the retrieval time will increase by $T_p - L_q$ amount and since we know that $T_p \geq L_p$ then for all elements after $i_q$ there has been an increase in retrieval time. Even if $p$ and $q$ are at the last elements the combined retrieval time would have increase by $L_p - L_q$ which we know if greater than 0.
@@ -196,6 +210,7 @@ $$
 Now if I put that inside the recurrence equation:
 
 $$
+\begin{split}
   T(n) = 4 \times T(\frac{n}{4}) + 1 \leq 4 \times c \times \frac{n}{4} \times \log{\frac{n}{4}}
   \\
   T(n) \leq c \times n \log{\frac{n}{4}}
@@ -203,6 +218,7 @@ $$
   T(n) \leq c \times n (\log{n}-\log{4}) \leq c \times n \log{n}
   \\
   \boxed{T(n) \leq c \times n \log{n}}
+\end{split}
 $$
 
 So this proves our assumption is correct and $T(n) = \Theta(n \log{n})$.
@@ -210,6 +226,7 @@ So this proves our assumption is correct and $T(n) = \Theta(n \log{n})$.
 ### Part B
 
 $$
+\begin{split}
   T(n) = 16 \times T(n/4) + n \rightarrow
     \begin{cases}
       a = 16
@@ -220,6 +237,7 @@ $$
     \end{cases}
     \\
     f(n) = O(n) = O(n^{\log_{b}{a}-\epsilon})\ for\ \epsilon = 1
+\end{split}
 $$
 
 Clearly this is case 1 of the master theorem in which case $T(n) = \Theta(n^{\log_{b}{a}}) = \Theta(n^2)$
@@ -227,6 +245,7 @@ Clearly this is case 1 of the master theorem in which case $T(n) = \Theta(n^{\lo
 ### Part C
 
 $$
+\begin{split}
   T(n) = 4 \times T(n/2) + n^2 \rightarrow
     \begin{cases}
       a = 4
@@ -237,6 +256,7 @@ $$
     \end{cases}
     \\
     n^{\log_{b}{a}} = n^2 \rightarrow f(n) = \Theta(n^{\log_{b}{a}} \log^{k} {n})\ for\ k = 0
+\end{split}
 $$
 
 According to the $2_{nd}$ case of the master theorem $T(n)=\Theta(n^2 \log{n})$.
@@ -244,6 +264,7 @@ According to the $2_{nd}$ case of the master theorem $T(n)=\Theta(n^2 \log{n})$.
 ### Part D
 
 $$
+\begin{split}
   T(n) = 9 \times T(n/3) + n^2 \log{n} \rightarrow
     \begin{cases}
       a = 9
@@ -254,6 +275,7 @@ $$
     \end{cases}
     \\
     \log_{b}{a} = 2 \rightarrow f(n) = \Theta(n^{\log_{b}{a}} \log^{k}{n})\ for\ k = 1
+\end{split}
 $$
 
 Which means according to case 2 of the master theorem $T(n) = \Theta(n^2 \log^{2}{n})$.
@@ -261,6 +283,7 @@ Which means according to case 2 of the master theorem $T(n) = \Theta(n^2 \log^{2
 ### Part E
 
 $$
+\begin{split}
   T(n) = 6 \times T(n/3) + n^2 \log{n} \rightarrow
     \begin{cases}
       a = 6
@@ -275,6 +298,7 @@ $$
     \&
     \\
     a \times f(\frac{n}{b}) = 6 \times \frac{n^2}{9} \times \log{\frac{n}{3}} = \frac{2}{3}n^2(\log{n}-\log{3}) \leq \delta f(n), \exists \delta < 1
+\end{split}
 $$
 
 according to the $3_{rd}$ case of the master theorem $T(n) = \Theta(f(n)) = \Theta(n^2 \log{n})$.
